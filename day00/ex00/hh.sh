@@ -1,4 +1,4 @@
-#!/bin/shell
+#!/bin/sh
 
 vacancy=$(echo $1 | sed 's/ /%20/g')
 echo "You want to search : $vacancy"
