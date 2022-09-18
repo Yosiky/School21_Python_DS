@@ -19,23 +19,23 @@ def code_str(line, shift):
     
 
 if __name__ == '__main__':
-    count = len(sys.argv)
-    if count == 4:
-        sys.argv[2] = sys.argv[2].encode('ascii')
-        shift = int(sys.argv[3])
-        arr_lower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-        arr_upper = list(map(lambda x: x.upper(), arr_lower))
-        start_lower = ord('a')
-        start_upper = ord('A')
-        match sys.argv[1].strip().lower():
-            case 'encode':
-                print(code_str(sys.argv[2], shift))
-            case 'decode':
-                print(code_str(sys.argv[2], -shift))
-            case _:
-                raise Exception("Not valid command")
-    
-    else:
-        raise Exception("Not valid count arguments")
-
-
+    try:
+        count = len(sys.argv)
+        if count == 4:
+            sys.argv[2] = sys.argv[2].encode('ascii')
+            shift = int(sys.argv[3])
+            arr_lower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+            arr_upper = list(map(lambda x: x.upper(), arr_lower))
+            start_lower = ord('a')
+            start_upper = ord('A')
+            match sys.argv[1].strip().lower():
+                case 'encode':
+                    print(code_str(sys.argv[2], shift))
+                case 'decode':
+                    print(code_str(sys.argv[2], -shift))
+                case _:
+                    raise Exception("Not valid command")
+        else:
+            raise Exception("Not valid count arguments")
+    except Exception as some:
+        print(some)
