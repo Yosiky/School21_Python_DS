@@ -15,6 +15,7 @@ def find_price_company(arg):
     'TSLA': 724.88,
     'NOK': 3.37
     }
+    arg = arg.strip()
     arg = arg[0].upper() + arg[1:].lower()
     if arg in COMPANIES:
         print(STOCKS[COMPANIES[arg]])
