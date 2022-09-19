@@ -53,7 +53,7 @@ class Analitics(Calculations):
     
 
 if __name__ == '__main__':
-    # try:
+    try:
         count = len(sys.argv)
         if count == 2:
             a = Research('data.csv')
@@ -70,5 +70,5 @@ if __name__ == '__main__':
             
         else:
             raise Exception("No valid count argument")
-    # except Exception as some:
-        # print(some)
+    except Exception as some:
+        print(some)
