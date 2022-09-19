@@ -15,7 +15,7 @@ class Research:
                 raise Exception("Not valid header in file")
             for i in lines:
                 print(i, end='')
-        return lines
+        return ''.join(lines)
 
 if __name__ == '__main__':
     try:
