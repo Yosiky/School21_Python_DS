@@ -21,12 +21,12 @@ def test(func, par, count):
 
 if __name__ == '__main__':
     try:
-        count = 1000000
+        count = 1
         list_some = [random.randrange(101) for i in range(1000000)]
         print(f'my function: {timeit.timeit(lambda: create_dict(list_some), number=count)}')
-        print(f'counter: {timeit.timeit(lambda: Counter({list_some}), number=count)}')
-        print(f'my function: {timeit.timeit(lambda: find_top(list_some), number=count)}')
-        print(f'my function: {timeit.timeit(lambda: Counter({list_some}).most_common(10), number=count)}')
+        print(f'counter: {timeit.timeit(lambda: Counter(list_some), number=count)}')
+        print(f'my function top: {timeit.timeit(lambda: find_top(list_some), number=count)}')
+        print(f'counter top: {timeit.timeit(lambda: Counter(list_some).most_common(10), number=count)}')
         
     except Exception as some:
         print(some)
