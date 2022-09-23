@@ -1,4 +1,5 @@
 from collections import Counter, defaultdict
+from datetime import datetime
 import statistics
 import re
 
@@ -225,25 +226,27 @@ class Ratings:
         """
         self.__file_name = path_to_the_file
 
-     def __parse_data(self, line):
+    def __parse_data(self, line):
         line = line.strip().split(',')
-        line[2] = line[2].lower()
-        line[2] = " ".join(list(sorted(re.findall("\w+[-*\w+]{0,}", line[2]))))
-        return int(line[0]), int(line[1]), line[2], line[3]
+        return int(line[0]), int(line[1]), float(line[2]), int(line[3])
 
     def read_file(self):
         with open(self.__file_name, 'r') as file_input:
-            if file_input.readline().strip() != 'userId,movieId,tag,timestamp':
+            if file_input.readline().strip() != 'userId,movieId,rating,timestamp':
                 raise exception('not valid header in file')
             self.__data = [self.__parse_data(i) for i in file_input.readlines()]
 
-   # class Movies:    
-    #     def dist_by_year(self):
-    #         """
-    #         The method returns a dict where the keys are years and the values are counts. 
-    #         Sort it by years ascendingly. You need to extract years from timestamps.
-    #         """
-    #         return ratings_by_year
+    class Movies:
+        def dist_by_year(self):
+            """
+            The method returns a dict where the keys are years and the values are counts. 
+            Sort it by years ascendingly. You need to extract years from timestamps.
+            """
+            ratings_by_year = defaultdict(int)
+            for i in self.__data:
+                year = datetime.fromtimestamp(i[3]).date.year
+                ratings_by_year[year] += 1
+            return dict(sorted(ratings_by_year.items()))
         
     #     def dist_by_rating(self):
     #         """
@@ -334,14 +337,16 @@ def test_tags():
     print(tags.most_popular(10))
     print(tags.tags_with(list(some.keys())[0]))
 
-def test_ratings()
+def test_ratings():
     ratings = Ratings("ml-latest-small/ratings.csv")
+    ratings.read_file()
+    print(ratings.Movies.dist_by_year())
 
 
 if __name__ == '__main__':
-    print(re.findall(pattern, line))
     print("start")
     # test_movies()
     # test_links()
-    test_tags()
+    # test_tags()
+    test_ratings()
 
