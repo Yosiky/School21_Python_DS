@@ -235,8 +235,20 @@ class Ratings:
             if file_input.readline().strip() != 'userId,movieId,rating,timestamp':
                 raise exception('not valid header in file')
             self.__data = [self.__parse_data(i) for i in file_input.readlines()]
+            self.__movies = Ratings.Movies(self.__data)
+
+    def dist_by_year(self):
+        return self.__movies.dist_by_year()
+
+    def dist_by_rating(self):
+        return self.__movies.dist_by_rating()
+
 
     class Movies:
+        
+        def __init__(self, arg):
+            self.__data = arg
+
         def dist_by_year(self):
             """
             The method returns a dict where the keys are years and the values are counts. 
@@ -244,24 +256,27 @@ class Ratings:
             """
             ratings_by_year = defaultdict(int)
             for i in self.__data:
-                year = datetime.fromtimestamp(i[3]).date.year
+                year = datetime.fromtimestamp(i[3]).year
                 ratings_by_year[year] += 1
             return dict(sorted(ratings_by_year.items()))
         
-    #     def dist_by_rating(self):
-    #         """
-    #         The method returns a dict where the keys are ratings and the values are counts.
-    #      Sort it by ratings ascendingly.
-    #         """
-    #         return ratings_distribution
+        def dist_by_rating(self):
+            """
+            The method returns a dict where the keys are ratings and the values are counts.
+         Sort it by ratings ascendingly.
+            """
+            ratings_distribution = defaultdict(int)
+            for i in self.__data:
+                ratings_distribution[i[2]] += 1
+            return dict(sorted(ratings_distribution.items(), key=lambda x : (x[0], x[1])))
         
-    #     def top_by_num_of_ratings(self, n):
-    #         """
-    #         The method returns top-n movies by the number of ratings. 
-    #         It is a dict where the keys are movie titles and the values are numbers.
-    #  Sort it by numbers descendingly.
-    #         """
-    #         return top_movies
+        def top_by_num_of_ratings(self, n):
+            """
+            The method returns top-n movies by the number of ratings. 
+            It is a dict where the keys are movie titles and the values are numbers.
+     Sort it by numbers descendingly.
+            """
+            return top_movies
         
     #     def top_by_ratings(self, n, metric=average):
     #         """
@@ -340,7 +355,8 @@ def test_tags():
 def test_ratings():
     ratings = Ratings("ml-latest-small/ratings.csv")
     ratings.read_file()
-    print(ratings.Movies.dist_by_year())
+    print(ratings.dist_by_year())
+    print(ratings.dist_by_rating())
 
 
 if __name__ == '__main__':
