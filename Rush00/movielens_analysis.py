@@ -242,7 +242,7 @@ class Ratings:
 
     def dist_by_rating(self):
         return self.__movies.dist_by_rating()
-
+#Здесь делаешь объявление функции и вней вызываешь от __movies нужный метод
 
     class Movies:
         
@@ -270,13 +270,13 @@ class Ratings:
                 ratings_distribution[i[2]] += 1
             return dict(sorted(ratings_distribution.items(), key=lambda x : (x[0], x[1])))
         
-        def top_by_num_of_ratings(self, n):
-            """
-            The method returns top-n movies by the number of ratings. 
-            It is a dict where the keys are movie titles and the values are numbers.
-     Sort it by numbers descendingly.
-            """
-            return top_movies
+        # def top_by_num_of_ratings(self, n):
+        #     """
+        #     The method returns top-n movies by the number of ratings. 
+        #     It is a dict where the keys are movie titles and the values are numbers.
+        #     Sort it by numbers descendingly.
+        #     """
+        #     return top_movies
         
     #     def top_by_ratings(self, n, metric=average):
     #         """
